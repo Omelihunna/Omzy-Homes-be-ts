@@ -59,7 +59,6 @@ class Middleware {
 
     public validateHome(req: Request, res: Response, next: NextFunction): void {
         console.log("Req.body should be here:", req.body)
-        console.log("Hmmmm E reach here")
         const { error } = HomeSchema.validate(req.body);
         if (error) {
             const msg = error.details.map((el: AnyError) => el.message).join(',');
