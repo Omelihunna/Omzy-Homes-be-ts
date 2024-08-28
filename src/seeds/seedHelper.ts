@@ -1,0 +1,45 @@
+export const descriptors = [
+    'Forest',
+    'Ancient',
+    'Petrified',
+    'Roaring',
+    'Cascade',
+    'Tumbling',
+    'Silent',
+    'Redwood',
+    'Bullfrog',
+    'Maple',
+    'Misty',
+    'Elk',
+    'Grizzly',
+    'Ocean',
+    'Sea',
+    'Sky',
+    'Dusty',
+    'Diamond'
+]
+
+export const places = [
+    'Flats',
+    'Homes',
+    'Canyon Homes',
+    'Apartment',
+    'Group Homes',
+    'Horse Homes',
+    'Ghost Homes',
+    'Homes',
+    'Dispersed Homes',
+    'Backcountry',
+    'River Homes',
+    'Creek Homes',
+    'Creekside Homes',
+    'Bay Homes',
+    'Spring',
+    'Bayshore',
+    'Sands',
+    'Mule Homes',
+    'Hunting Homes',
+    'Cliffs',
+    'Hollow'
+]
+

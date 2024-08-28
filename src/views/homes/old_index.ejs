@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OMZY HOMES</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+    <script crossorigin="anonymous" src='https://api.mapbox.com/mapbox-gl-js/v3.2.0/mapbox-gl.js'></script>
+    <script crossorigin="anonymous"
+        src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.js"></script>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/starability-basic.css" />
+    <link crossorigin="anonymous" href='https://api.mapbox.com/mapbox-gl-js/v3.2.0/mapbox-gl.css' rel='stylesheet' />
+    <link rel="stylesheet" href="/stylesheets/app.css">
+</head>
+
+<body class="d-flex flex-column vh-100">
+    <%- include("../partials/navbar") %>
+        <main class="container mt-5">
+            <%- include("../partials/flash") %>
+
+                <!-- <div class="mb-3" id="cluster-map"></div> -->
+                <h1 class="mb-3">All homes</h1>
+                <div>
+                    <button id="add-home-btn" class="btn btn-primary mb-3">
+                        Add homes
+                    </button>
+                </div>
+
+                <% for (let home of homes) { %>
+                    <div class="card mb-3">
+                        <div class="col-md-4">
+                            <% if (home.images.length) { %>
+                                <img crossorigin="anonymous" class="img-fluid" src="<%= home.images[0].url %>"
+                                    alt="home Image">
+                                <% } else { %>
+                                    <img crossorigin="anonymous" class="img-fluid"
+                                        src="https://res.cloudinary.com/dghmtarj6/image/upload/v1711813451/YelpCampm/aivh2lxlgdwk1jgzkmui.png"
+                                        alt="home Image" />
+                                    <% } %>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <%= home.title %>
+                                </h5>
+                                <p class="card-text">
+                                    <%= home.description %>
+                                </p>
+                                <p class="card-text">
+                                    <small class="text-muted">
+                                        <%= home.location %>
+                                    </small>
+                                </p>
+                                <a class="btn btn-primary" href="/homes/<%= home._id %>">
+                                    View <%= home.title %>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <% } %>
+                        <script>
+                            const mapToken = `<%- process.env.MAPBOX_TOKEN %>`;
+                            const homes = { features: <%- JSON.stringify(homes) %>}
+                            console.log(homes)
+                        </script>
+                        <script src="/scripts/clusterMap.js"></script>
+
+        </main>
+        <%- include("../partials/footer") %>
+        <script>
+            // Add onclick event listener to the button
+            document.getElementById('add-home-btn').onclick = function() {
+                location.href="/homes/new"
+            };
+        </script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+                crossorigin="anonymous"></script>
+            <script src="/scripts/validateForms.js"></script>
+</body>
+
+</html>
