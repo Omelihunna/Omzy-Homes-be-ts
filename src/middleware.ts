@@ -4,7 +4,6 @@ import Home from "./models/homes";
 import Review from "./models/Review"
 import {HomeSchema, ReviewSchema} from './schemas';
 import ExpressError from './utils/ExpressError';
-import { AnyError } from 'mongodb';
 import { IUser } from './models/User';
 
 

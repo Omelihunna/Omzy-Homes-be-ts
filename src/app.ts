@@ -17,7 +17,6 @@ import ExpressError from './utils/ExpressError';
 import DatabaseService from './Databases/DatabaseService';
 import * as dotenv from "dotenv"
 import bodyParser = require('body-parser');
-import { sanitizeInput } from './schemas';
 dotenv.config()
 
 const MONGO_URL = process.env.MONGO_URL as string;

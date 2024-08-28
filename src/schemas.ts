@@ -1,22 +1,4 @@
 import baseJoi, { Root, StringSchema } from 'joi';
-import { Response, Request, NextFunction } from 'express';
-import sanitizeHTML from 'sanitize-html';
-
-// Define the extension interface
-export function sanitizeInput(req: Request, res: Response, next: NextFunction): void {
-    if (req.body) {
-        for (const key in req.body) {
-            if (typeof req.body[key] === 'string') {
-                req.body[key] = sanitizeHTML(req.body[key], {
-                    allowedTags: [],
-                    allowedAttributes: {},
-                });
-            }
-        }
-    }
-    next();
-}
-
 
 // Extend the base Joi object with the extension
 const Joi = baseJoi
