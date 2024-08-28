@@ -1,43 +1,25 @@
 import baseJoi, { Root, StringSchema } from 'joi';
+import { Response, Request, NextFunction } from 'express';
 import sanitizeHTML from 'sanitize-html';
 
 // Define the extension interface
-interface Extension {
-    type: 'string';
-    base: StringSchema;
-    messages: {
-        'string.escapeHTML': string;
-    };
-    rules: {
-        escapeHTML: {
-            validate(value: string, helpers: any): string | void;
-        };
-    };
-}
-
-// Define the extension class
-class EscapeHTMLExtension implements Extension {
-    type: 'string' = 'string';
-    base: StringSchema = baseJoi.string();
-    messages = {
-        'string.escapeHTML': '{{#label}} must not contain HTML tags',
-    };
-    rules = {
-        escapeHTML: {
-            validate(value: string, helpers: any) {
-                const clean = sanitizeHTML(value, {
+export function sanitizeInput(req: Request, res: Response, next: NextFunction): void {
+    if (req.body) {
+        for (const key in req.body) {
+            if (typeof req.body[key] === 'string') {
+                req.body[key] = sanitizeHTML(req.body[key], {
                     allowedTags: [],
                     allowedAttributes: {},
                 });
-                if (clean !== value) return helpers.error('string.escapeHTML', { value });
-                return clean;
-            },
-        },
-    };
+            }
+        }
+    }
+    next();
 }
 
+
 // Extend the base Joi object with the extension
-const Joi = baseJoi.extend(new EscapeHTMLExtension());
+const Joi = baseJoi
 
 // Define the schema interfaces
 interface HomeSchema {
@@ -69,7 +51,7 @@ export const HomeSchema = Joi.object({
 export const ReviewSchema = Joi.object({
     review: Joi.object({
         rating: Joi.number().required(),
-        body: Joi.string().required().escapeHTML()
+        body: Joi.string().required()
     })
 });
 

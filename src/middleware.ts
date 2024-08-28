@@ -61,7 +61,7 @@ class Middleware {
         console.log("Req.body should be here:", req.body)
         const { error } = HomeSchema.validate(req.body);
         if (error) {
-            const msg = error.details.map((el: AnyError) => el.message).join(',');
+            const msg = error.details.map((el: any) => el.message).join(',');
             throw new ExpressError(msg, 400);
         } else {
             next();
@@ -71,7 +71,7 @@ class Middleware {
     public validateReview(req: Request, res: Response, next: NextFunction): void {
         const { error } = ReviewSchema.validate(req.body);
         if (error) {
-            const msg = error.details.map((el: AnyError) => el.message).join(',');
+            const msg = error.details.map((el: any) => el.message).join(',');
             throw new ExpressError(msg, 400);
         } else {
             next();
