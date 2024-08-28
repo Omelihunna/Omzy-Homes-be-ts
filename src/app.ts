@@ -59,7 +59,6 @@ class App {
         this.app.use(bodyParser.urlencoded({extended: true}))
         this.app.use(methodOverride('_method'));
         this.app.use(express.static(path.join(__dirname, 'public')));
-        this.app.use(sanitizeInput)
         this.app.use(mongoSanitize());
 
         const weekInMilli = 1000 * 60 * 60 * 24 * 7;
